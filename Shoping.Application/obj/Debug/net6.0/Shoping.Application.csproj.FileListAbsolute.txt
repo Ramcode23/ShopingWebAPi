@@ -1,0 +1,15 @@
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\Shoping.Application.csproj.AssemblyReference.cache
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\Shoping.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\Shoping.Application.AssemblyInfoInputs.cache
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\Shoping.Application.AssemblyInfo.cs
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\Shoping.Application.csproj.CoreCompileInputs.cache
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\bin\Debug\net6.0\Shoping.Application.deps.json
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\bin\Debug\net6.0\Shoping.Application.dll
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\bin\Debug\net6.0\Shoping.Application.pdb
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\bin\Debug\net6.0\Shoping.Domain.dll
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\bin\Debug\net6.0\Shoping.Domain.pdb
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\Shoping.Application.csproj.CopyComplete
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\Shoping.Application.dll
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\refint\Shoping.Application.dll
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\Shoping.Application.pdb
+C:\Users\ramc2\OneDrive\Escritorio\open\ShopingWebAPi\Shoping.Application\obj\Debug\net6.0\ref\Shoping.Application.dll
