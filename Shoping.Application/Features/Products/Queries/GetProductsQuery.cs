@@ -1,51 +1,49 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using Shoping.Application.Common.Helpers;
-using Microsoft.EntityFrameworkCore;
+using Shoping.Application.Common.Interfaces;
+using Shoping.Domain.Entities;
+using static Shoping.Application.Features.Products.Queries.GetProductsQueryHandler;
 
 namespace Shoping.Application.Features.Products.Queries;
 
-//public class GetProductsQuery : IRequest<List<GetProductsQueryResponse>>
-//{
+public class GetProductsQuery : IRequest<List<GetProductsQueryResponse>>
+{
 
-//}
+}
 
-//public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, List<GetProductsQueryResponse>>
-//{
-//    private readonly MyAppDbContext _context;
-//    private readonly IMapper _mapper;
+public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, List<GetProductsQueryResponse>>
+{
+    private readonly IMapper _mapper;
+    private readonly IUnitOfWork _unitOfWork;
 
-//    public GetProductsQueryHandler(MyAppDbContext context, IMapper mapper)
-//    {
-//        _context = context;
-//        _mapper = mapper;
-//    }
+    public GetProductsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
+    {
+        _mapper = mapper;
+        _unitOfWork = unitOfWork;
+    }
 
-//    public Task<List<GetProductsQueryResponse>> Handle(GetProductsQuery request, CancellationToken cancellationToken) =>
-//        _context.Products
-//            .AsNoTracking()
-//            .ProjectTo<GetProductsQueryResponse>(_mapper.ConfigurationProvider)
-//            .ToListAsync();
-//}
+    public async Task<List<GetProductsQueryResponse>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+    {
+        var Products = await _unitOfWork.Product.GetAllAsync();
+        return _mapper.Map<List<GetProductsQueryResponse>>(Products);
+    }
+    
+    public class GetProductsQueryResponse
+    {
+        public string Id { get; set; } = default!;
+        public int Code { get; set; }
+        public string Name { get; set; } = default!;
+        public int Category_Id { get; set; }
+        public decimal Price { get; set; }
+    }
 
-//public class GetProductsQueryResponse
-//{
-//    public string ProductId { get; set; } = default!;
-//    public string Description { get; set; } = default!;
-//    public double Price { get; set; }
-//    public string ListDescription { get; set; } = default!;
-//}
-
-//public class GetProductsQueryProfile : Profile
-//{
-//    public GetProductsQueryProfile() =>
-//        CreateMap<Product, GetProductsQueryResponse>()
-//            .ForMember(dest =>
-//                dest.ListDescription,
-//                opt => opt.MapFrom(mf => $"{mf.Description} - {mf.Price:c}"))
-//            .ForMember(dest =>
-//                dest.ProductId,
-//                opt => opt.MapFrom(mf => mf.ProductId.ToHashId()));
-
-//}
+    public class GetProductsQueryProfile : Profile
+    {
+        public GetProductsQueryProfile() =>
+            CreateMap<Product, GetProductsQueryResponse>()
+                .ForMember(dest => 
+                    dest.Id,
+                    opt => opt.MapFrom(mf => mf.Id.ToHashId()));
+    }
+}
