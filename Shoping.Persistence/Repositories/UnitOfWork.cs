@@ -16,16 +16,18 @@ namespace Shoping.Persistence.Repositories
        /*  private BaseRepository<Position> _positions;
         private BaseRepository<Client> _category; */
         private IGenericRepository<Category> _category;
-       
+        private IGenericRepository<Client> _client;
+
 
         public UnitOfWork(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-   
+        public IGenericRepository<Inventary> Inventary => throw new NotImplementedException();
 
         IGenericRepository<Category> IUnitOfWork.Category => _category ?? (_category = new GenericRepository<Category>(_dbContext));
+        IGenericRepository<Client> IUnitOfWork.Client => _client ?? (_client = new GenericRepository<Client>(_dbContext));
 
         public void Commit()
             => _dbContext.SaveChanges();

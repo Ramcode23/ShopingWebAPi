@@ -13,6 +13,7 @@ namespace Shoping.Application.Common.Interfaces
        
        IGenericRepository<Category> Category { get; }
         IGenericRepository<Inventary> Inventary { get; }
+        IGenericRepository<Client> Client { get; }
         void Commit();
         void Rollback();
         Task CommitAsync();
