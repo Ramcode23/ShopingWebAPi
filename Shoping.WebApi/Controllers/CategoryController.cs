@@ -26,7 +26,7 @@ namespace Shoping.WebApi.Controllers
         /// Consulta los Categoryos
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet]   
         public Task<List<GetCategoriesQueryResponse>> GetCategorys() => _mediator.Send(new GetCategoriesQuery());
 
         /// <summary>

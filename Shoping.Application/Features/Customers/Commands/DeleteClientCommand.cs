@@ -10,10 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shoping.Application.Features.Client.Commands
+namespace Shoping.Application.Features.Customers.Commands
 {
-    
-     public class DeleteClientCommand : IRequest
+    public class DeleteClientCommand : IRequest
     {
         public string Id { get; set; } = default!;
         public string Name { get; set; } = default!;

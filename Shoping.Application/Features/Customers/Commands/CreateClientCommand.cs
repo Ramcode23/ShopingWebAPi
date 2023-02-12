@@ -1,20 +1,23 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Shoping.Application.Common.Interfaces;
-using FluentValidation;
 using Shoping.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Shoping.Application.Features.Client.Commands;
-
-    public class CreateClientCommand : IRequest
-    {
-        public string Name { get; set; } = default!;
-        public string Ruc { get; set; } = default!;
-        public string Number { get; set; } = default!;
-        public string Email { get; set; } = default!;
-        public string Direction { get; set; } = default!;
-    }
+namespace Shoping.Application.Features.Customers.Commands;
+public class CreateClientCommand : IRequest
+{
+    public string Name { get; set; } = default!;
+    public string Ruc { get; set; } = default!;
+    public string Number { get; set; } = default!;
+    public string Email { get; set; } = default!;
+    public string Direction { get; set; } = default!;
+}
 
 public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand>
 {
@@ -30,8 +33,8 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand>
 
     public async Task<Unit> Handle(CreateClientCommand request, CancellationToken cancellationToken)
     {
-    
-        var newClient= _mapper.Map<Client>(request);
+
+        var newClient = _mapper.Map<Client>(request);
 
         this._unitOfWork.Client.Add(newClient);
         await this._unitOfWork.CommitAsync();
@@ -51,8 +54,10 @@ public class CreateClientValidator : AbstractValidator<CreateClientCommand>
     public CreateClientValidator()
     {
         RuleFor(r => r.Name).NotNull();
+        RuleFor(r => r.Ruc).NotNull();
+        RuleFor(r => r.Number).NotNull();
+        RuleFor(r => r.Email).NotNull();
+        RuleFor(r => r.Direction).NotNull();
 
     }
 }
-
-

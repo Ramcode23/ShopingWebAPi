@@ -4,13 +4,15 @@ using MediatR;
 using Shoping.Application.Common.Exceptions;
 using Shoping.Application.Common.Helpers;
 using Shoping.Application.Common.Interfaces;
+using Shoping.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shoping.Application.Features.Client.Commands;
+namespace Shoping.Application.Features.Customers.Commands;
+
 public class UpdateClientCommand : IRequest
 {
     public string Id { get; set; } = default!;
@@ -35,14 +37,19 @@ public class UpdateClientCommandHandler : IRequest<UpdateClientCommand>
     public async Task<Unit> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
     {
         var ClientId = request.Id.FromHashId();
-        var Cliemt = await _unitOfWork.Client.GetAsync(C => C.Id == ClientId);
+        var Client = await _unitOfWork.Client.GetAsync(C => C.Id == ClientId);
 
-        if (Cliemt == null)
+        if (Client == null)
         {
             throw new NotFoundException();
-        } 
+        }
 
-     }
+        Client.Name = request.Name;
+        await this._unitOfWork.CommitAsync();
+
+        return Unit.Value;
+
+    }
 }
 
 public class UpdateClientValidator : AbstractValidator<UpdateClientCommand>
@@ -50,6 +57,11 @@ public class UpdateClientValidator : AbstractValidator<UpdateClientCommand>
     public UpdateClientValidator()
     {
         RuleFor(r => r.Id).NotNull().NotEmpty();
-        RuleFor(r => r.Name).NotNull().NotEmpty();
+        RuleFor(r => r.Name).NotNull();
+        RuleFor(r => r.Ruc).NotNull();
+        RuleFor(r => r.Number).NotNull();
+        RuleFor(r => r.Email).NotNull();
+        RuleFor(r => r.Direction).NotNull();
     }
 }
+
