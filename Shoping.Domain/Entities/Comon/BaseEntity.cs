@@ -9,4 +9,5 @@ public class BaseEntity
     public string? CreatedBy { get; set; }
     public DateTime? LastModifiedByAt { get; set; }
     public string? LastModifiedBy { get; set; }
+    public bool IsDeteleted { get; set; }
 }
