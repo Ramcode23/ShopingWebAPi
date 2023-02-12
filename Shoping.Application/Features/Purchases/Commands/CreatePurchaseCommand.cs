@@ -29,8 +29,7 @@ public class CreatePurchaseCommandHandler : IRequestHandler<CreatePurchaseComman
     public async Task<Unit> Handle(CreatePurchaseCommand request, CancellationToken cancellationToken)
     {
         var newPurchase = _mapper.Map<Purchase>(request);
-    
-
+        newPurchase.Number = Guid.NewGuid().ToString();
         _unitOfWork.Purchase.Add(newPurchase);
 
         await _unitOfWork.CommitAsync();
@@ -55,6 +54,6 @@ public class CreatePurchaseValidator : AbstractValidator<CreatePurchaseCommand>
         RuleFor(r => r.Date).NotNull();
         RuleFor(r => r.Provider_Id).NotNull();
         RuleFor(r => r.PurchaseDetails.Count).NotEqual(0);
-      
+
     }
 }
