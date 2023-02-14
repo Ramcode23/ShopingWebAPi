@@ -12,12 +12,6 @@ namespace Shoping.Domain.Entities
         public DateTime Date { get; set; }
         public int Provider_Id { get; set; }
         public Provider Provider { get; set; } = new Provider();
-        public int Created_By { get; set; }
-        public User User { get; set; } = new User();
-        public DateTime Created_At { get; set; }
-        public int Modified_By { get; set; }
-        public DateTime Modified_At { get; set; }
-
-         public ICollection<PurchaseDetail> PurchaseDetails { get; set; } = new  List<PurchaseDetail>();
+        public ICollection<PurchaseDetail> PurchaseDetails { get; set; } = new  List<PurchaseDetail>();
     }
 }

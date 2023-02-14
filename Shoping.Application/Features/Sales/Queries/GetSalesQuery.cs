@@ -34,7 +34,7 @@ public class GetSalesQueryHandler : IRequestHandler<GetSalesQuery, List<GetSales
         public string Id { get; set; } = default!;
         public string Number { get; set; } = default!;
         public DateTime Date { get; set; }
-        public int Client_Id { get; set; }
+        public string ClientName { get; set; } = default!;
     }
 
     public class GetSalesQueryProfile : Profile

@@ -24,7 +24,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
     }
     public async Task<GetProductQueryResponse> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-        var Product = _unitOfWork.Product.GetAsync(p => p.Id==request.Id.FromHashId() && p.IsDeteleted==false);
+        var Product = _unitOfWork.Product.GetAsync(p => p.Id==request.Id.FromHashId() && p.IsDeleted==false);
 
         if (Product is null)
         {
