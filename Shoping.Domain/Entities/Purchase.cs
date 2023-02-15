@@ -13,5 +13,9 @@ namespace Shoping.Domain.Entities
         public int Provider_Id { get; set; }
         public Provider Provider { get; set; } = new Provider();
         public ICollection<PurchaseDetail> PurchaseDetails { get; set; } = new  List<PurchaseDetail>();
+
+        public DateTime? CanceledAt { get; set; }
+        public string? CanceledBy { get; set; }
+        public bool IsCanceled { get; set; }
     }
 }

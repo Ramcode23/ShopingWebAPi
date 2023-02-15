@@ -25,7 +25,8 @@ public class GetPurchaseQueryHandler : IRequestHandler<GetPurchaseQuery, GetPurc
     }
     public async Task<GetPurchaseQueryResponse> Handle(GetPurchaseQuery request, CancellationToken cancellationToken)
     {
-        var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id==request.Id.FromHashId() && p.IsDeleted == false);
+        var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id==request.Id.FromHashId() && p.IsCanceled == false);
+        // var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id == request.Id.FromHashId() && p.IsDeleted == false);
 
         if (purchase is null)
         {
