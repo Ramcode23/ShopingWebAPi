@@ -24,14 +24,14 @@ public class GetSaleQueryHandler : IRequestHandler<GetSaleQuery, GetSaleQueryRes
     }
     public async Task<GetSaleQueryResponse> Handle(GetSaleQuery request, CancellationToken cancellationToken)
     {
-        var Sale = await _unitOfWork.Sale.GetAsync(p => p.Id==request.Id.FromHashId());
+        var sale = await _unitOfWork.Sale.GetAsync(s => s.Id==request.Id.FromHashId() && s.IsDeleted == false);
 
-        if (Sale is null)
+        if (sale is null)
         {
-            throw new NotFoundException(nameof(Sale), request.Id);
+            throw new NotFoundException(nameof(sale), request.Id);
         }
 
-        return _mapper.Map<GetSaleQueryResponse>(Sale);
+        return _mapper.Map<GetSaleQueryResponse>(sale);
     }
 }
 

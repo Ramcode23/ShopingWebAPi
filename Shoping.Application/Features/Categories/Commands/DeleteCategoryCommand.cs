@@ -15,13 +15,11 @@ namespace Shoping.Application.Features.Categories.Commands
     public class DeleteCategoryCommand : IRequest
     {
         public string Id { get; set; } = default!;
-        public string Name { get; set; } = default!;
-
+        // public string Name { get; set; } = default!;
     }
 
     public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand>
     {
-
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
@@ -33,11 +31,11 @@ namespace Shoping.Application.Features.Categories.Commands
 
         public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            var CategoryId = request.Id.FromHashId();
-            var Category = await _unitOfWork.Category.GetAsync(C => C.Id == CategoryId);
-            _unitOfWork.Category.Remove(Category);
+            var categoryId = request.Id.FromHashId();
+            var category = await _unitOfWork.Category.GetAsync(C => C.Id == categoryId);
+            _unitOfWork.Category.Remove(category);
 
-            if (Category is null)
+            if (category is null)
             {
                 throw new NotFoundException();
             }

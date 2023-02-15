@@ -25,8 +25,8 @@ public class GetProvidersQueryHandler : IRequestHandler<GetProvidersQuery, List<
 
     public async Task<List<GetProvidersQueryResponse>> Handle(GetProvidersQuery request, CancellationToken cancellationToken)
     {
-        var Providers = await _unitOfWork.Provider.GetAllAsync();
-        return _mapper.Map<List<GetProvidersQueryResponse>>(Providers);
+        var providers = await _unitOfWork.Provider.GetAllAsync(p => p.IsDeleted == false);
+        return _mapper.Map<List<GetProvidersQueryResponse>>(providers);
     }
     
     public class GetProvidersQueryResponse

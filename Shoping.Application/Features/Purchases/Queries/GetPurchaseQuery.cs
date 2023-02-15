@@ -25,14 +25,14 @@ public class GetPurchaseQueryHandler : IRequestHandler<GetPurchaseQuery, GetPurc
     }
     public async Task<GetPurchaseQueryResponse> Handle(GetPurchaseQuery request, CancellationToken cancellationToken)
     {
-        var Purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id==request.Id.FromHashId());
+        var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id==request.Id.FromHashId() && p.IsDeleted == false);
 
-        if (Purchase is null)
+        if (purchase is null)
         {
-            throw new NotFoundException(nameof(Purchase), request.Id);
+            throw new NotFoundException(nameof(purchase), request.Id);
         }
 
-        return _mapper.Map<GetPurchaseQueryResponse>(Purchase);
+        return _mapper.Map<GetPurchaseQueryResponse>(purchase);
     }
 }
 

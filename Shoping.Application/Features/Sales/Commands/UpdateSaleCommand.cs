@@ -29,17 +29,17 @@ public class UpdateSaleCommandHandler : IRequestHandler<UpdateSaleCommand>
 
     public async Task<Unit> Handle(UpdateSaleCommand request, CancellationToken cancellationToken)
     {
-        var SaleId = request.Id.FromHashId();
-        var Sale = await _unitOfWork.Sale.GetAsync(S => S.Id==SaleId);
+        var saleId = request.Id.FromHashId();
+        var sale = await _unitOfWork.Sale.GetAsync(s => s.Id==saleId);
 
-        if (Sale is null)
+        if (sale is null)
         {
             throw new NotFoundException();
         }
 
-        Sale.Number = request.Number;
-        Sale.Date = request.Date;
-        Sale.Client_Id = request.Client_Id;
+        sale.Number = request.Number;
+        sale.Date = request.Date;
+        sale.Client_Id = request.Client_Id;
 
         await _unitOfWork.CommitAsync();
 

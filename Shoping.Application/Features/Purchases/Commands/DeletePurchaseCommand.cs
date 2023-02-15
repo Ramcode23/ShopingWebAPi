@@ -4,15 +4,13 @@ using MediatR;
 using Shoping.Application.Common.Exceptions;
 using Shoping.Application.Common.Helpers;
 using Shoping.Application.Common.Interfaces;
+using Shoping.Domain.Entities;
 
 namespace Shoping.Application.Features.Purchases.Commands
 {
     public class DeletePurchaseCommand : IRequest
     {
         public string Id { get; set; } = default!;
-        public string Number { get; set; } = default!;
-        public DateTime Date { get; set; }
-        public int Client_Id { get; set; }
     }
 
     public class DeletePurchaseCommandHandler : IRequestHandler<DeletePurchaseCommand>
@@ -28,14 +26,15 @@ namespace Shoping.Application.Features.Purchases.Commands
 
         public async Task<Unit> Handle(DeletePurchaseCommand request, CancellationToken cancellationToken)
         {
-            var PurchaseId = request.Id.FromHashId();
-            var Purchase = await _unitOfWork.Purchase.GetAsync(P => P.Id == PurchaseId);
-            _unitOfWork.Purchase.Remove(Purchase);
+            var purchaseId = request.Id.FromHashId();
+            var purchase = await _unitOfWork.Purchase.GetAsync(P => P.Id == purchaseId);
 
-            if (Purchase is null)
+            if (purchase is null)
             {
                 throw new NotFoundException();
             }
+
+            purchase.IsDeleted = true;
 
             await _unitOfWork.CommitAsync();
 

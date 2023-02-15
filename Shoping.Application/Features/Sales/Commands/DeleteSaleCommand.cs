@@ -4,15 +4,13 @@ using MediatR;
 using Shoping.Application.Common.Exceptions;
 using Shoping.Application.Common.Helpers;
 using Shoping.Application.Common.Interfaces;
+using Shoping.Domain.Entities;
 
 namespace Shoping.Application.Features.Sales.Commands
 {
     public class DeleteSaleCommand : IRequest
     {
         public string Id { get; set; } = default!;
-        public string Number { get; set; } = default!;
-        public DateTime Date { get; set; }
-        public int Client_Id { get; set; }
     }
 
     public class DeleteSaleCommandHandler : IRequestHandler<DeleteSaleCommand>
@@ -28,14 +26,15 @@ namespace Shoping.Application.Features.Sales.Commands
 
         public async Task<Unit> Handle(DeleteSaleCommand request, CancellationToken cancellationToken)
         {
-            var SaleId = request.Id.FromHashId();
-            var Sale = await _unitOfWork.Sale.GetAsync(P => P.Id == SaleId);
-            _unitOfWork.Sale.Remove(Sale);
+            var saleId = request.Id.FromHashId();
+            var sale = await _unitOfWork.Sale.GetAsync(P => P.Id == saleId);
 
-            if (Sale is null)
+            if (sale is null)
             {
                 throw new NotFoundException();
             }
+
+            sale.IsDeleted = true;
 
             await _unitOfWork.CommitAsync();
 

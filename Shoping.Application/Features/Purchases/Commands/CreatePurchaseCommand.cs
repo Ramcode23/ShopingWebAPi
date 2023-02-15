@@ -30,8 +30,8 @@ public class CreatePurchaseCommandHandler : IRequestHandler<CreatePurchaseComman
     {
         var newPurchase = _mapper.Map<Purchase>(request);
         newPurchase.Number = Guid.NewGuid().ToString();
+        
         _unitOfWork.Purchase.Add(newPurchase);
-
         await _unitOfWork.CommitAsync();
 
         return Unit.Value;
