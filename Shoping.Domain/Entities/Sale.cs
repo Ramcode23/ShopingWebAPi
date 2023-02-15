@@ -12,5 +12,6 @@ namespace Shoping.Domain.Entities
         public DateTime Date { get; set; }
         public int Client_Id { get; set; }
         // public Client Client { get; set; } = new Client();
+        public ICollection<SaleDetail> SaleDetails { get; set; } = new List<SaleDetail>();
     }
 }
