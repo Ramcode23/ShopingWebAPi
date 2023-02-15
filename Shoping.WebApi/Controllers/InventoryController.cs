@@ -63,6 +63,7 @@ namespace Shoping.WebApi.Controllers
         //     /// Consulta un Categoryo por su ID
         //     /// </summary>
         //     /// <param name="query"></param>
+
         //     /// <returns></returns>
         [HttpGet("{InventaryId}")]
         public Task<GetInventoryQueryResponse> GetInventaryById([FromRoute] GetInventoryQuery query) =>

@@ -17,6 +17,8 @@ namespace Shoping.Persistence.Repositories
         private BaseRepository<Client> _category; */
         private IGenericRepository<Category> _category;
         private IGenericRepository<Client> _client;
+        private IGenericRepository<DeliveryDetail> _deliveyDetail;
+        private IGenericRepository<Delivery> _delivey;
 
 
         public UnitOfWork(AppDbContext dbContext)
@@ -28,6 +30,8 @@ namespace Shoping.Persistence.Repositories
 
         IGenericRepository<Category> IUnitOfWork.Category => _category ?? (_category = new GenericRepository<Category>(_dbContext));
         IGenericRepository<Client> IUnitOfWork.Client => _client ?? (_client = new GenericRepository<Client>(_dbContext));
+        IGenericRepository<DeliveryDetail> IUnitOfWork.DeliveryDetail => _deliveyDetail ?? (_deliveyDetail = new GenericRepository<DeliveryDetail>(_dbContext));
+        IGenericRepository<Delivery> IUnitOfWork.Delivery => _delivey ?? (_delivey = new GenericRepository<Delivery>(_dbContext));
 
         public void Commit()
             => _dbContext.SaveChanges();
