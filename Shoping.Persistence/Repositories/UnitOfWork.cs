@@ -16,6 +16,12 @@ namespace Shoping.Persistence.Repositories
        /*  private BaseRepository<Position> _positions;
         private BaseRepository<Client> _category; */
         private IGenericRepository<Category> _category;
+
+        private IGenericRepository<Product> _product;
+        private IGenericRepository<Sale> _sale;
+        private IGenericRepository<Purchase> _purchase;
+        private IGenericRepository<Provider> _provider;
+
         private IGenericRepository<Client> _client;
         private IGenericRepository<DeliveryDetail> _deliveyDetail;
         private IGenericRepository<Delivery> _delivey;
@@ -29,9 +35,6 @@ namespace Shoping.Persistence.Repositories
         public IGenericRepository<Inventary> Inventary => throw new NotImplementedException();
 
         IGenericRepository<Category> IUnitOfWork.Category => _category ?? (_category = new GenericRepository<Category>(_dbContext));
-        IGenericRepository<Client> IUnitOfWork.Client => _client ?? (_client = new GenericRepository<Client>(_dbContext));
-        IGenericRepository<DeliveryDetail> IUnitOfWork.DeliveryDetail => _deliveyDetail ?? (_deliveyDetail = new GenericRepository<DeliveryDetail>(_dbContext));
-        IGenericRepository<Delivery> IUnitOfWork.Delivery => _delivey ?? (_delivey = new GenericRepository<Delivery>(_dbContext));
 
         public void Commit()
             => _dbContext.SaveChanges();

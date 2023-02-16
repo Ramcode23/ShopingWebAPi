@@ -10,6 +10,12 @@ namespace Shoping.Application.Common.Interfaces
 {
     public interface IUnitOfWork
     {
+       
+       IGenericRepository<Category> Category { get; }
+       IGenericRepository<Product> Product { get; }
+       IGenericRepository<Sale> Sale { get; }
+       IGenericRepository<Purchase> Purchase { get; }
+       IGenericRepository<Provider> Provider { get; }
 
         IGenericRepository<Category> Category { get; }
         IGenericRepository<Inventary> Inventary { get; }

@@ -12,6 +12,7 @@ using static Shoping.Application.Features.Caterories.Queries.GetCategoriesQueryH
 
 namespace Shoping.WebApi.Controllers
 {
+     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
@@ -65,5 +66,17 @@ namespace Shoping.WebApi.Controllers
         [HttpGet("{CategoryId}")]
         public Task<GetCategoryQueryResponse> GetCategoryById([FromRoute] GetCategoryQuery query) =>
            _mediator.Send(query);
-    }
+    
+
+
+       [HttpDelete]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteCategory( string Id)
+        {
+            await _mediator.Send(  new DeleteCategoryCommand{Id=Id});
+
+            return Ok();
+        }
+}
+
 }
