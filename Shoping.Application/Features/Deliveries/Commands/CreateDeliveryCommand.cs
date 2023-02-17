@@ -12,7 +12,9 @@ using System.Threading.Tasks;
 namespace Shoping.Application.Features.Deliveries.Commands;
 public class CreateDeliveryCommand : IRequest
 {
+    public string UserilId { get; set; } = default!;
     public string DeliveryDetailId { get; set; } = default!;
+    public string SalelId { get; set; } = default!;
 }
 
 public class CreateDeliveryCommandHandler : IRequestHandler<CreateDeliveryCommand>
@@ -46,6 +48,8 @@ public class CreateDeliveryValidator : AbstractValidator<CreateDeliveryCommand>
 {
     public CreateDeliveryValidator()
     {
+        RuleFor(r => r.UserilId).NotNull();
         RuleFor(r => r.DeliveryDetailId).NotNull();
+        RuleFor(r => r.SalelId).NotNull();
     }
 }

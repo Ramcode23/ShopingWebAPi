@@ -30,7 +30,7 @@ public class GetDeliveryQueryHandler : IRequestHandler<GetDeliveryQuery, GetDeli
     public async Task<GetDeliveryQueryResponse> Handle(GetDeliveryQuery request , CancellationToken cancellationToken)
 
     {
-        var Delivery = _unitOfWork.Delivery.GetAsync(D => D.Id == request.Id.FromHashId());
+        var Delivery = _unitOfWork.Delivery.GetAsync(D => D.Id == request.Id.FromHashId() && D.IsDeteleted==false);
 
         if (Delivery is null)
         {
@@ -44,6 +44,9 @@ public class GetDeliveryQueryHandler : IRequestHandler<GetDeliveryQuery, GetDeli
 public class GetDeliveryQueryResponse
 {
     public string Id { get; set; } = default!;
+    public string UserilId { get; set; } = default!;
+    public string DeliveryDetailId { get; set; } = default!;
+    public string SalelId { get; set; } = default!;
 }
 
 public class GetDeliveryProfile : Profile

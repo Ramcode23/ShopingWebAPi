@@ -30,12 +30,15 @@ public class GetDeliveriesQueryHandler : IRequestHandler<GetDeliveriesQuery, Lis
 
     public async Task<List<GetDeliveriesQueryResponse>> Handle(GetDeliveriesQuery request , CancellationToken cancellationToken)
     {
-        var Deliveries = await _uniOfWork.Delivery.GetAllAsync();
+        var Deliveries = await _uniOfWork.Delivery.GetAllAsync(D =>D.IsDeteleted==false);
         return _mapper.Map<List<GetDeliveriesQueryResponse>>(Deliveries);
     }
     public class GetDeliveriesQueryResponse
     {
         public string Id { get; set; } = default!;
+        public string UserilId { get; set; } = default!;
+        public string DeliveryDetailId { get; set; } = default!;
+        public string SalelId { get; set; } = default!;
     }
 
     public class GetDeliveriesQueryProfile : Profile

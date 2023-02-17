@@ -8,9 +8,12 @@ namespace Shoping.Domain.Entities
 {
     public class Delivery : BaseEntity
     {
+        public int UserilId { get; set; } = default!;
         //public ICollection<User> IdUser { get; set; } = new List<User>();
 
-        public ICollection<DeliveryDetail> DeliveryDetailId { get; set;} = new List<DeliveryDetail>();
+        public int DeliveryDetailId { get; set; } = default!;
+        public DeliveryDetail DeliveryDetail { get; set;} = new DeliveryDetail();
         //public ICollection<Sale> SaleId { get; set;}
+        public int SalelId { get; set; } = default!;
     }
 }

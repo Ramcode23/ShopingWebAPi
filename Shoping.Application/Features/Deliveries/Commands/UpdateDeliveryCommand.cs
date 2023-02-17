@@ -14,6 +14,9 @@ namespace Shoping.Application.Features.Deliveries.Commands;
 public class UpdateDeliveryCommand : IRequest
 {
     public string Id { get; set; } = default!;
+    public string UserilId { get; set; } = default!;
+    public string DeliveryDetailId { get; set; } = default!;
+    public string SalelId { get; set; } = default!;
 }
 
 public class UpdateDeliveryCommandHandler : IRequestHandler<UpdateDeliveryCommand>
@@ -37,8 +40,11 @@ public class UpdateDeliveryCommandHandler : IRequestHandler<UpdateDeliveryComman
             throw new ArgumentException();
         }
 
-        //Delivery.DeliveryDetailId = Convert.ToInt32(request.Id);
-
+        Delivery.Id = Convert.ToInt32(request.Id);
+        Delivery.UserilId = Convert.ToInt32(request.UserilId);
+        Delivery.DeliveryDetailId = Convert.ToInt32(request.DeliveryDetailId);
+        Delivery.SalelId = Convert.ToInt32(request.SalelId);
+        await _unitOfWork.CommitAsync();
         return Unit.Value;
     }
 }
@@ -48,5 +54,8 @@ public class UpdateDeliveryValidator : AbstractValidator<UpdateDeliveryCommand>
     public UpdateDeliveryValidator()
     {
         RuleFor(r => r.Id).NotNull().NotEmpty();
+        RuleFor(r => r.UserilId).NotNull().NotEmpty();
+        RuleFor(r => r.DeliveryDetailId).NotNull().NotEmpty();
+        RuleFor(r => r.SalelId).NotNull().NotEmpty();
     }
 }

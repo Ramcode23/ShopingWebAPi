@@ -33,12 +33,13 @@ namespace Shoping.Application.Features.Deliveries.Commands
             var DeliveryId = request.Id.FromHashId();
             var Delivery = await _unitOfWork.Delivery.GetAsync(D => D.Id == DeliveryId);
 
-            _unitOfWork.Delivery.Remove(Delivery);
+            //_unitOfWork.Delivery.Remove(Delivery);
 
             if (Delivery is null)
             {
                 throw new NotFoundException();
             }
+            Delivery.IsDeteleted = true;
 
             await this._unitOfWork.CommitAsync();
             return Unit.Value;
