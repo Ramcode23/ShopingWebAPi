@@ -43,11 +43,12 @@ namespace Shoping.WebApi.Controllers
         public Task<GetSaleQueryResponse> GetSaleById([FromRoute] GetSaleQuery query) =>
             _mediator.Send(query);
 
-        [HttpDelete]
+        // [HttpDelete]
+        [HttpPost("CancelSale/{Id:int}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteSale(string Id)
+        public async Task<IActionResult> CancelSale(string Id)
         {
-            await _mediator.Send(new DeleteSaleCommand { Id = Id });
+            await _mediator.Send(new CancelSaleCommand { Id = Id });
 
             return Ok();
         }

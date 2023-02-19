@@ -43,7 +43,7 @@ namespace Shoping.WebApi.Controllers
             _mediator.Send(query);
 
         // [HttpDelete]
-        [HttpPost("CancelInvoice/{Id:int}")]
+        [HttpPost("CancelPurchase/{Id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CancelPurchase(string Id)
         {

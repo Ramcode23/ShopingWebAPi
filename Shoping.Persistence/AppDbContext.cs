@@ -21,7 +21,14 @@ public class AppDbContext : IdentityDbContext<User>
  
     
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
-   
+    public DbSet<Product> Products => Set<Product>();
+    public DbSet<Sale> Sales => Set<Sale>();
+    public DbSet<SaleDetail> SalesDetail => Set<SaleDetail>();
+    public DbSet<Purchase> Purchases => Set<Purchase>();
+    public DbSet<PurchaseDetail> PurchasesDetail => Set<PurchaseDetail>();
+    public DbSet<Provider> Providers => Set<Provider>();
+
+
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         foreach (var entry in ChangeTracker.Entries<BaseEntity>())

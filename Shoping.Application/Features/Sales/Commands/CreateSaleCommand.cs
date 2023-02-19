@@ -1,9 +1,9 @@
-﻿using AutoMapper;
+﻿using MediatR;
+using Shoping.Domain.Entities;
+using AutoMapper;
 using FluentValidation;
-using MediatR;
 using Shoping.Application.Common.Interfaces;
 using Shoping.Application.DTOs;
-using Shoping.Domain.Entities;
 
 namespace Shoping.Application.Features.Sales.Commands;
 

@@ -25,7 +25,9 @@ public class GetSalesQueryHandler : IRequestHandler<GetSalesQuery, List<GetSales
 
     public async Task<List<GetSalesQueryResponse>> Handle(GetSalesQuery request, CancellationToken cancellationToken)
     {
-        var sales = await _unitOfWork.Sale.GetAllAsync(s => s.IsDeleted == false);
+        var sales = await _unitOfWork.Sale.GetAllAsync();
+        // var sales = await _unitOfWork.Sale.GetAllAsync(s => s.IsCanceled == false);
+
         return _mapper.Map<List<GetSalesQueryResponse>>(sales);
     }
     

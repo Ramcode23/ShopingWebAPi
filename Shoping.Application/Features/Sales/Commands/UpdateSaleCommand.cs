@@ -30,7 +30,9 @@ public class UpdateSaleCommandHandler : IRequestHandler<UpdateSaleCommand>
     public async Task<Unit> Handle(UpdateSaleCommand request, CancellationToken cancellationToken)
     {
         var saleId = request.Id.FromHashId();
-        var sale = await _unitOfWork.Sale.GetAsync(s => s.Id==saleId);
+        var sale = await _unitOfWork.Sale.GetAsync(s => s.Id==saleId && s.IsCanceled == false);
+        // var sale = await _unitOfWork.Sale.GetAsync(s => s.Id == saleId);
+
 
         if (sale is null)
         {

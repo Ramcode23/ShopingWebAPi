@@ -25,8 +25,8 @@ public class GetPurchasesQueryHandler : IRequestHandler<GetPurchasesQuery, List<
 
     public async Task<List<GetPurchasesQueryResponse>> Handle(GetPurchasesQuery request, CancellationToken cancellationToken)
     {
-        var purchases = await _unitOfWork.Purchase.GetAllAsync(p => p.IsCanceled == false);
-        // var purchases = await _unitOfWork.Purchase.GetAllAsync(p => p.IsDeleted == false);
+        var purchases = await _unitOfWork.Purchase.GetAllAsync();
+        // var purchases = await _unitOfWork.Purchase.GetAllAsync(p => p.IsCanceled == false);
 
         return _mapper.Map<List<GetPurchasesQueryResponse>>(purchases);
     }

@@ -34,8 +34,8 @@ public class UpdatePurchaseCommandHandler : IRequestHandler<UpdatePurchaseComman
     public async Task<Unit> Handle(UpdatePurchaseCommand request, CancellationToken cancellationToken)
     {
         var purchaseId = request.Id.FromHashId();
-        var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id == purchaseId);
-        // var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id == purchaseId && p.IsCanceled == false);
+        var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id == purchaseId && p.IsCanceled == false);
+        // var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id == purchaseId);
 
         if (purchase is null)
         {

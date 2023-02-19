@@ -3,6 +3,7 @@ using MediatR;
 using Shoping.Application.Common.Exceptions;
 using Shoping.Application.Common.Helpers;
 using Shoping.Application.Common.Interfaces;
+using Shoping.Domain;
 using Shoping.Domain.Entities;
 
 namespace Shoping.Application.Features.Sales.Queries;
@@ -24,7 +25,8 @@ public class GetSaleQueryHandler : IRequestHandler<GetSaleQuery, GetSaleQueryRes
     }
     public async Task<GetSaleQueryResponse> Handle(GetSaleQuery request, CancellationToken cancellationToken)
     {
-        var sale = await _unitOfWork.Sale.GetAsync(s => s.Id==request.Id.FromHashId() && s.IsDeleted == false);
+        var sale = await _unitOfWork.Sale.GetAsync(s => s.Id==request.Id.FromHashId());
+        // var sale = await _unitOfWork.Sale.GetAsync(s => s.Id == request.Id.FromHashId() && s.IsCanceled == false);
 
         if (sale is null)
         {
