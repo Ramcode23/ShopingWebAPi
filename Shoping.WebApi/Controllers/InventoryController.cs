@@ -1,25 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shoping.Application.Features.Categories.Commands;
 using Shoping.Application.Features.Categories.Queries;
 using Shoping.Application.Features.Caterories.Queries;
 using static Shoping.Application.Features.Caterories.Queries.GetCategoriesQueryHandler;
+using System.Data;
+using static Shoping.Application.Features.Inventory.Queries.GetInventoriesQueryHandler;
+using Shoping.Application.Features.Inventory.Queries;
+using Shoping.Application.Features.Inventory.Commands;
 
 namespace Shoping.WebApi.Controllers
 {
-     [Authorize]
+    
     [ApiController]
     [Route("api/[controller]")]
-    public class CategoryController : ControllerBase
+    public class InventoryController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public CategoryController(IMediator mediator)
+        public InventoryController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -27,8 +28,8 @@ namespace Shoping.WebApi.Controllers
         /// Consulta los Categoryos
         /// </summary>
         /// <returns></returns>
-        [HttpGet]   
-        public Task<List<GetCategoriesQueryResponse>> GetCategorys() => _mediator.Send(new GetCategoriesQuery());
+        [HttpGet]
+        public Task<List<GetInventoriesQueryResponse>> GetInventorys() => _mediator.Send(new GetInventoriesQuery());
 
         /// <summary>
         /// Crea un Categoryo nuevo
@@ -37,7 +38,7 @@ namespace Shoping.WebApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryCommand command)
+        public async Task<IActionResult> GetInventory([FromBody] CreateInventoryCommand command)
         {
             await _mediator.Send(command);
 
@@ -51,7 +52,7 @@ namespace Shoping.WebApi.Controllers
         //     /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryCommand command)
+        public async Task<IActionResult> UpdateInventory([FromBody] UpdateInventoryCommand command)
         {
             await _mediator.Send(command);
 
@@ -62,21 +63,19 @@ namespace Shoping.WebApi.Controllers
         //     /// Consulta un Categoryo por su ID
         //     /// </summary>
         //     /// <param name="query"></param>
+
         //     /// <returns></returns>
-        [HttpGet("{CategoryId}")]
-        public Task<GetCategoryQueryResponse> GetCategoryById([FromRoute] GetCategoryQuery query) =>
+        [HttpGet("{InventaryId}")]
+        public Task<GetInventoryQueryResponse> GetInventaryById([FromRoute] GetInventoryQuery query) =>
            _mediator.Send(query);
-    
 
-
-       [HttpDelete]
+        [HttpDelete]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteCategory( string Id)
+        public async Task<IActionResult> DeleteInventory(string Id)
         {
-            await _mediator.Send(  new DeleteCategoryCommand{Id=Id});
+            await _mediator.Send(new DeleteInventoryCommand { Id = Id });
 
             return Ok();
         }
-}
-
+    }
 }

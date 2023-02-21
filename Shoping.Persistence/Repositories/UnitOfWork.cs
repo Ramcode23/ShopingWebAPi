@@ -22,19 +22,19 @@ namespace Shoping.Persistence.Repositories
         private IGenericRepository<Purchase> _purchase;
         private IGenericRepository<Provider> _provider;
 
+        private IGenericRepository<Client> _client;
+        private IGenericRepository<DeliveryDetail> _deliveyDetail;
+        private IGenericRepository<Delivery> _delivey;
+
 
         public UnitOfWork(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-   
+        public IGenericRepository<Inventary> Inventary => throw new NotImplementedException();
 
         IGenericRepository<Category> IUnitOfWork.Category => _category ?? (_category = new GenericRepository<Category>(_dbContext));
-        IGenericRepository<Product> IUnitOfWork.Product => _product ?? (_product = new GenericRepository<Product>(_dbContext));
-        IGenericRepository<Sale> IUnitOfWork.Sale => _sale ?? (_sale = new GenericRepository<Sale>(_dbContext));
-        IGenericRepository<Purchase> IUnitOfWork.Purchase => _purchase ?? (_purchase = new GenericRepository<Purchase>(_dbContext));
-        IGenericRepository<Provider> IUnitOfWork.Provider => _provider ?? (_provider = new GenericRepository<Provider>(_dbContext));
 
         public void Commit()
             => _dbContext.SaveChanges();
