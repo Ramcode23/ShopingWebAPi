@@ -30,7 +30,7 @@ public class GetInventoryQueryHandler : IRequestHandler<GetInventoryQuery, GetIn
     public async Task<GetInventoryQueryResponse> Handle(GetInventoryQuery request, CancellationToken cancellationToken)
     {
 
-        var Inventary = _unitOfWork.Inventary.GetAsync(c => c.Id == request.Id.FromHashId());
+        var Inventary = _unitOfWork.Inventary.GetAsync(I => I.Id == request.Id.FromHashId() && I.IsDeteleted == false);
 
         if (Inventary is null)
         {
@@ -46,6 +46,7 @@ public class GetInventoryQueryResponse
     public string Id { get; set; } = default!;
     public string Price { get; set; } = default!;
     public string Stock { get; set; } = default!;
+    public string Product_Id { get; set; } = default!;
 
 }
 

@@ -10,6 +10,7 @@ namespace Shoping.Domain.Entities
     {
         public int Price { get; set; }
         public int Stock { get; set; }
-        //public  ICollection<Product> products { get; set; } = new List<Product>
+        public int Product_Id { get; set; }
+        public Product products { get; set; } = new Product();
     }
 }

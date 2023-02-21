@@ -16,8 +16,8 @@ namespace Shoping.Application.Features.Inventory.Commands
     {
         public string Id { get; set; } = default!;
         public string Price { get; set; } = default!;
-        public string Stock { get; set; } = default!;
-
+        public string Stock { get; set; } = default!; 
+        public string Product_Id { get; set; } = default!;
     }
 
     public class DeleteInventoryCommandHandler : IRequestHandler<DeleteInventoryCommand>
@@ -36,13 +36,13 @@ namespace Shoping.Application.Features.Inventory.Commands
         {
             var InventoryId = request.Id.FromHashId();
             var Inventory = await _unitOfWork.Inventary.GetAsync(C => C.Id == InventoryId);
-            _unitOfWork.Inventary.Remove(Inventory);
+            //_unitOfWork.Inventary.Remove(Inventory);
 
             if (Inventory is null)
             {
                 throw new NotFoundException();
             }
-
+            Inventory.IsDeteleted = true;
             await this._unitOfWork.CommitAsync();
 
             return Unit.Value;

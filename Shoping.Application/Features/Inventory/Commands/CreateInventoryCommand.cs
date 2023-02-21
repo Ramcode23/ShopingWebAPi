@@ -15,6 +15,7 @@ public class CreateInventoryCommand : IRequest
 {
     public string Price { get; set; } = default!;
     public string Stock { get; set; } = default!;
+    public int Product_Id { get; set; } = default!;
 }
 
 public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryCommand>
@@ -52,6 +53,7 @@ public class CreateInventoryValidator : AbstractValidator<CreateInventoryCommand
     {
         RuleFor(r => r.Price).NotNull();
         RuleFor(r => r.Stock).NotNull();
+        RuleFor(r => r.Product_Id).NotNull();
 
     }
 }
