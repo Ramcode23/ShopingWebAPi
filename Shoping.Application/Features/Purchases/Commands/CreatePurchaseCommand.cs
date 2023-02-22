@@ -42,7 +42,7 @@ public class CreatePurchaseCommandMapper : Profile
     public CreatePurchaseCommandMapper()
     {
         CreateMap<CreatePurchaseCommand, Purchase>();
-        CreateMap<SaleDetailCreateDTO, SaleDetail>();
+        CreateMap<PurchaseDetailCreateDTO, PurchaseDetail>();
     }
 }
 

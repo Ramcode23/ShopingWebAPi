@@ -38,12 +38,12 @@ namespace Shoping.WebApi.Controllers
             return Ok();
         }
 
-        [HttpGet("{PurchaseId}")]
+        [HttpGet("{Id}")]
         public Task<GetPurchaseQueryResponse> GetPurchaseById([FromRoute] GetPurchaseQuery query) =>
             _mediator.Send(query);
 
         // [HttpDelete]
-        [HttpPost("CancelPurchase/{Id:int}")]
+        [HttpPost("CancelPurchase/{Id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CancelPurchase(string Id)
         {

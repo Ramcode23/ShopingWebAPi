@@ -38,7 +38,7 @@ namespace Shoping.WebApi.Controllers
             return Ok();
         }
 
-        [HttpGet("{ProviderId}")]
+        [HttpGet("{Id}")]
         public Task<GetProviderQueryResponse> GetProviderById([FromRoute] GetProviderQuery query) =>
             _mediator.Send(query);
 
