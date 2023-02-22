@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Shoping.Domain.Entities.Comon
 {
-    public class DetailBaseEntity:BaseEntity
+    public class DetailBaseEntity:CancelBaseEntity
     {
         
         public int Code { get; set; }
