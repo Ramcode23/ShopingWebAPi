@@ -14,10 +14,6 @@ public class UpdatePurchaseCommand : IRequest
     public string Number { get; set; } = default!;
     public DateTime Date { get; set; }
     public int Provider_Id { get; set; }
-    public int Created_By { get; set; }
-    public DateTime Created_At { get; set; }
-    public int Modified_By { get; set; }
-    public DateTime Modified_At { get; set; }
 }
 
 public class UpdatePurchaseCommandHandler : IRequestHandler<UpdatePurchaseCommand>

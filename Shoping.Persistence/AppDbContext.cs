@@ -27,6 +27,7 @@ public class AppDbContext : IdentityDbContext<User>
     public DbSet<Purchase> Purchases => Set<Purchase>();
     public DbSet<PurchaseDetail> PurchasesDetail => Set<PurchaseDetail>();
     public DbSet<Provider> Providers => Set<Provider>();
+    public DbSet<Category> Categories => Set<Category>();
 
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

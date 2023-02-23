@@ -10,6 +10,6 @@ namespace Shoping.Domain.Entities
     public class SaleDetail : DetailBaseEntity
     {
         public int Sale_Id { get; set; }
-        public Sale Sale { get; set; } = new Sale();
+        public Sale Sale { get; set; } // = new Sale();
     }
 }

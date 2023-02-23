@@ -12,7 +12,7 @@ namespace Shoping.Domain.Entities
         public string Number { get; set; } = string.Empty;
         public DateTime Date { get; set; }
         public int Provider_Id { get; set; }
-        public Provider Provider { get; set; } = new Provider();
-        public ICollection<PurchaseDetail> PurchaseDetails { get; set; } = new  List<PurchaseDetail>();
+        public Provider Provider { get; set; } // = new Provider();
+        public ICollection<PurchaseDetail> PurchaseDetails { get; set; } // = new  List<PurchaseDetail>();
     }
 }
