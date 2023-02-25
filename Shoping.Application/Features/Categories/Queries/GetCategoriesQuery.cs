@@ -17,7 +17,9 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, Lis
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
+
     public GetCategoriesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
+   public GetCategoriesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
