@@ -39,7 +39,7 @@ namespace Shoping.WebApi.Controllers
             return Ok();
         }
 
-        [HttpGet("{ProductId}")]
+        [HttpGet("{Id}")]
         public Task<GetProductQueryResponse> GetProductById([FromRoute] GetProductQuery query) => 
             _mediator.Send(query);
 

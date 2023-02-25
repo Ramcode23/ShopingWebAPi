@@ -13,5 +13,6 @@ namespace Shoping.Domain.Entities
         public int Number { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Direction { get; set; } = string.Empty;
+        public ICollection<Purchase> Purchases { get; set; } // = new List<Purchase>();
     }
 }

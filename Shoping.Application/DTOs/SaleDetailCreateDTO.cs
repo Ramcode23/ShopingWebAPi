@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shoping.Domain.Entities.Comon
+namespace Shoping.Application.DTOs
 {
-    public class DetailBaseEntity:CancelBaseEntity
+    public class SaleDetailCreateDTO
     {
-        
+
         public int Code { get; set; }
         public string Name { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public decimal Quality { get; set; }
         public decimal Total { get; set; }
-        
+        public int Sale_Id { get; set; }
     }
 }

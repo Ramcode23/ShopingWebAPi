@@ -25,14 +25,15 @@ public class GetPurchaseQueryHandler : IRequestHandler<GetPurchaseQuery, GetPurc
     }
     public async Task<GetPurchaseQueryResponse> Handle(GetPurchaseQuery request, CancellationToken cancellationToken)
     {
-        var Purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id==request.Id.FromHashId());
+        var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id==request.Id.FromHashId());
+        // var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id == request.Id.FromHashId() && p.IsCanceled == false);
 
-        if (Purchase is null)
+        if (purchase is null)
         {
-            throw new NotFoundException(nameof(Purchase), request.Id);
+            throw new NotFoundException(nameof(purchase), request.Id);
         }
 
-        return _mapper.Map<GetPurchaseQueryResponse>(Purchase);
+        return _mapper.Map<GetPurchaseQueryResponse>(purchase);
     }
 }
 
@@ -42,10 +43,6 @@ public class GetPurchaseQueryResponse
     public string Number { get; set; } = default!;
     public DateTime Date { get; set; }
     public int Provider_Id { get; set; }
-    public int Created_By { get; set; }
-    public DateTime Created_At { get; set; }
-    public int Modified_By { get; set; }
-    public DateTime Modified_At { get; set; }
 }
 
 public class GetPurchaseQueryProfile : Profile

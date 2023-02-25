@@ -4,17 +4,13 @@ using MediatR;
 using Shoping.Application.Common.Exceptions;
 using Shoping.Application.Common.Helpers;
 using Shoping.Application.Common.Interfaces;
+using Shoping.Domain.Entities;
 
 namespace Shoping.Application.Features.Providers.Commands
 {
     public class DeleteProviderCommand : IRequest
     {
         public string Id { get; set; } = default!;
-        public string Name { get; set; } = default!;
-        public string RUC { get; set; } = default!;
-        public int Number { get; set; }
-        public string Email { get; set; } = default!;
-        public string Direction { get; set; } = default!;
     }
 
     public class DeleteProviderCommandHandler : IRequestHandler<DeleteProviderCommand>
@@ -30,14 +26,15 @@ namespace Shoping.Application.Features.Providers.Commands
 
         public async Task<Unit> Handle(DeleteProviderCommand request, CancellationToken cancellationToken)
         {
-            var ProviderId = request.Id.FromHashId();
-            var Provider = await _unitOfWork.Provider.GetAsync(P => P.Id == ProviderId);
-            _unitOfWork.Provider.Remove(Provider);
+            var providerId = request.Id.FromHashId();
+            var provider = await _unitOfWork.Provider.GetAsync(P => P.Id == providerId);
 
-            if (Provider is null)
+            if (provider is null)
             {
                 throw new NotFoundException();
             }
+
+            provider.IsDeleted = true;
 
             await _unitOfWork.CommitAsync();
 

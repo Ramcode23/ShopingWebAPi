@@ -14,10 +14,6 @@ public class UpdatePurchaseCommand : IRequest
     public string Number { get; set; } = default!;
     public DateTime Date { get; set; }
     public int Provider_Id { get; set; }
-    public int Created_By { get; set; }
-    public DateTime Created_At { get; set; }
-    public int Modified_By { get; set; }
-    public DateTime Modified_At { get; set; }
 }
 
 public class UpdatePurchaseCommandHandler : IRequestHandler<UpdatePurchaseCommand>
@@ -33,21 +29,18 @@ public class UpdatePurchaseCommandHandler : IRequestHandler<UpdatePurchaseComman
 
     public async Task<Unit> Handle(UpdatePurchaseCommand request, CancellationToken cancellationToken)
     {
-        var PurchaseId = request.Id.FromHashId();
-        var Purchase = await _unitOfWork.Purchase.GetAsync(P => P.Id == PurchaseId);
+        var purchaseId = request.Id.FromHashId();
+        var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id == purchaseId && p.IsCanceled == false);
+        // var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id == purchaseId);
 
-        if (Purchase is null)
+        if (purchase is null)
         {
             throw new NotFoundException();
         }
 
-        Purchase.Number = request.Number;
-        Purchase.Date = request.Date;
-        Purchase.Provider_Id = request.Provider_Id;
-        Purchase.Created_By = request.Created_By;
-        Purchase.Created_At = request.Created_At;
-        Purchase.Modified_By = request.Modified_By;
-        Purchase.Modified_At = request.Modified_At;
+        purchase.Number = request.Number;
+        purchase.Date = request.Date;
+        purchase.Provider_Id = request.Provider_Id;
 
         await _unitOfWork.CommitAsync();
 
@@ -63,9 +56,5 @@ public class UpdatePurchaseValidator : AbstractValidator<UpdatePurchaseCommand>
         RuleFor(r => r.Number).NotNull();
         RuleFor(r => r.Date).NotNull();
         RuleFor(r => r.Provider_Id).NotNull().GreaterThan(0);
-        RuleFor(r => r.Created_By).NotNull().GreaterThan(0);
-        RuleFor(r => r.Created_At).NotNull();
-        RuleFor(r => r.Modified_By).NotNull().GreaterThan(0);
-        RuleFor(r => r.Modified_At).NotNull();
     }
 }

@@ -39,7 +39,7 @@ namespace Shoping.Application.Features.Products.Commands
             {
                 throw new NotFoundException();
             }
-            product.IsDeteleted = true;
+            product.IsDeleted = true;
 
             await _unitOfWork.CommitAsync();
 

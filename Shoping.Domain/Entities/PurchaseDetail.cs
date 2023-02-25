@@ -10,6 +10,6 @@ namespace Shoping.Domain.Entities
     {
 
         public int Purchase_Id { get; set; }
-        public Purchase Purchase { get; set; } = new Purchase();
+        public Purchase Purchase { get; set; } // = new Purchase();
     }
 }

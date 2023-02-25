@@ -24,14 +24,14 @@ public class GetProviderQueryHandler : IRequestHandler<GetProviderQuery, GetProv
     }
     public async Task<GetProviderQueryResponse> Handle(GetProviderQuery request, CancellationToken cancellationToken)
     {
-        var Provider = await _unitOfWork.Provider.GetAsync(p => p.Id==request.Id.FromHashId());
+        var provider = await _unitOfWork.Provider.GetAsync(p => p.Id==request.Id.FromHashId() && p.IsDeleted == false);
 
-        if (Provider is null)
+        if (provider is null)
         {
-            throw new NotFoundException(nameof(Provider), request.Id);
+            throw new NotFoundException(nameof(provider), request.Id);
         }
 
-        return _mapper.Map<GetProviderQueryResponse>(Provider);
+        return _mapper.Map<GetProviderQueryResponse>(provider);
     }
 }
 

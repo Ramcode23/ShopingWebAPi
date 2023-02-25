@@ -1,29 +1,29 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static Shoping.Application.Features.Purchases.Queries.GetPurchasesQueryHandler;
-using Shoping.Application.Features.Purchases.Queries;
-using Shoping.Application.Features.Purchases.Commands;
+using static Shoping.Application.Features.PurchasesDetail.Queries.GetPurchasesDetailQueryHandler;
+using Shoping.Application.Features.PurchasesDetail.Queries;
+using Shoping.Application.Features.PurchasesDetail.Commands;
 
 namespace Shoping.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PurchaseController : ControllerBase
+    public class PurchaseDetailController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public PurchaseController(IMediator mediator)
+        public PurchaseDetailController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet]
-        public Task<List<GetPurchasesQueryResponse>> GetPurchases() => _mediator.Send(new GetPurchasesQuery());
+        public Task<List<GetPurchasesDetailQueryResponse>> GetPurchases() => _mediator.Send(new GetPurchasesDetailQuery());
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreatePurchase([FromBody] CreatePurchaseCommand command)
+        public async Task<IActionResult> CreatePurchase([FromBody] CreatePurchaseDetailCommand command)
         {
             await _mediator.Send(command);
             return Ok();
@@ -31,7 +31,7 @@ namespace Shoping.WebApi.Controllers
 
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdatePurchase([FromBody] UpdatePurchaseCommand command)
+        public async Task<IActionResult> UpdatePurchase([FromBody] UpdatePurchaseDetailCommand command)
         {
             await _mediator.Send(command);
 
@@ -39,15 +39,14 @@ namespace Shoping.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
-        public Task<GetPurchaseQueryResponse> GetPurchaseById([FromRoute] GetPurchaseQuery query) =>
+        public Task<GetPurchaseDetailQueryResponse> GetPurchaseById([FromRoute] GetPurchaseDetailQuery query) =>
             _mediator.Send(query);
 
-        // [HttpDelete]
         [HttpPost("CancelPurchase/{Id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CancelPurchase(string Id)
         {
-            await _mediator.Send(new CancelPurchaseCommand { Id = Id });
+            await _mediator.Send(new CancelPurchaseDetailCommand { Id = Id });
 
             return Ok();
         }

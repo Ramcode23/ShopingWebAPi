@@ -24,14 +24,14 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
     }
     public async Task<GetProductQueryResponse> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-        var Product = _unitOfWork.Product.GetAsync(p => p.Id==request.Id.FromHashId() && p.IsDeteleted==false);
+        var product = await _unitOfWork.Product.GetAsync(p => p.Id==request.Id.FromHashId() && p.IsDeleted==false);
 
-        if (Product is null)
+        if (product is null)
         {
-            throw new NotFoundException(nameof(Product), request.Id);
+            throw new NotFoundException(nameof(product), request.Id);
         }
 
-        return _mapper.Map<GetProductQueryResponse>(Product);
+        return _mapper.Map<GetProductQueryResponse>(product);
     }
 }
 

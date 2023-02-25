@@ -21,6 +21,8 @@ namespace Shoping.Persistence.Repositories
         private IGenericRepository<Sale> _sale;
         private IGenericRepository<Purchase> _purchase;
         private IGenericRepository<Provider> _provider;
+        private IGenericRepository<PurchaseDetail> _purchaseDetail;
+        private IGenericRepository<SaleDetail> _saleDetail;
 
         private IGenericRepository<Client> _client;
         private IGenericRepository<DeliveryDetail> _deliveyDetail;
@@ -32,9 +34,18 @@ namespace Shoping.Persistence.Repositories
             _dbContext = dbContext;
         }
 
+
+        IGenericRepository<Category> IUnitOfWork.Category => _category ?? (_category = new GenericRepository<Category>(_dbContext));
+        IGenericRepository<Product> IUnitOfWork.Product => _product ?? (_product = new GenericRepository<Product>(_dbContext));
+        IGenericRepository<Sale> IUnitOfWork.Sale => _sale ?? (_sale = new GenericRepository<Sale>(_dbContext));
+        IGenericRepository<Purchase> IUnitOfWork.Purchase => _purchase ?? (_purchase = new GenericRepository<Purchase>(_dbContext));
+        IGenericRepository<Provider> IUnitOfWork.Provider => _provider ?? (_provider = new GenericRepository<Provider>(_dbContext));
+        IGenericRepository<PurchaseDetail> IUnitOfWork.PurchaseDetail => _purchaseDetail ?? (_purchaseDetail = new GenericRepository<PurchaseDetail>(_dbContext));
+        IGenericRepository<SaleDetail> IUnitOfWork.SaleDetail => _saleDetail ?? (_saleDetail = new GenericRepository<SaleDetail>(_dbContext));
         public IGenericRepository<Inventary> Inventary => throw new NotImplementedException();
 
         IGenericRepository<Category> IUnitOfWork.Category => _category ?? (_category = new GenericRepository<Category>(_dbContext));
+
 
         public void Commit()
             => _dbContext.SaveChanges();

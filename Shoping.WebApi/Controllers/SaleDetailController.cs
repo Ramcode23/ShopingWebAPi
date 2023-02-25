@@ -1,30 +1,29 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Shoping.Application.Features.Sales.Commands;
-using Shoping.Application.Features.Sales.Queries;
-using static Shoping.Application.Features.Sales.Queries.GetSalesQueryHandler;
+using Shoping.Application.Features.SalesDetail.Commands;
+using Shoping.Application.Features.SalesDetail.Queries;
+using static Shoping.Application.Features.SalesDetail.Queries.GetSalesDetailQueryHandler;
 
 namespace Shoping.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SaleController : ControllerBase
+    public class SaleDetailController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public SaleController(IMediator mediator)
+        public SaleDetailController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet]
-        public Task<List<GetSalesQueryResponse>> GetSales() => _mediator.Send(new GetSalesQuery());
+        public Task<List<GetSalesDetailQueryResponse>> GetSales() => _mediator.Send(new GetSalesDetailQuery());
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateSale([FromBody] CreateSaleCommand command)
+        public async Task<IActionResult> CreateSale([FromBody] CreateSaleDetailCommand command)
         {
             await _mediator.Send(command);
             return Ok();
@@ -32,7 +31,7 @@ namespace Shoping.WebApi.Controllers
 
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateSale([FromBody] UpdateSaleCommand command)
+        public async Task<IActionResult> UpdateSale([FromBody] UpdateSaleDetailCommand command)
         {
             await _mediator.Send(command);
 
@@ -40,15 +39,14 @@ namespace Shoping.WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
-        public Task<GetSaleQueryResponse> GetSaleById([FromRoute] GetSaleQuery query) =>
+        public Task<GetSaleDetailQueryResponse> GetSaleById([FromRoute] GetSaleDetailQuery query) =>
             _mediator.Send(query);
 
-        // [HttpDelete]
         [HttpPost("CancelSale/{Id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CancelSale(string Id)
         {
-            await _mediator.Send(new CancelSaleCommand { Id = Id });
+            await _mediator.Send(new CancelSaleDetailCommand { Id = Id });
 
             return Ok();
         }

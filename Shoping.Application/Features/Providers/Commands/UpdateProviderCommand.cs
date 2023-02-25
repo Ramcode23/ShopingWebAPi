@@ -31,19 +31,19 @@ public class UpdateProviderCommandHandler : IRequestHandler<UpdateProviderComman
 
     public async Task<Unit> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
     {
-        var ProviderId = request.Id.FromHashId();
-        var Provider = await _unitOfWork.Provider.GetAsync(P => P.Id == ProviderId);
+        var providerId = request.Id.FromHashId();
+        var provider = await _unitOfWork.Provider.GetAsync(p => p.Id == providerId);
 
-        if (Provider is null)
+        if (provider is null)
         {
             throw new NotFoundException();
         }
 
-        Provider.Name = request.Name;
-        Provider.RUC = request.RUC;
-        Provider.Number = request.Number;
-        Provider.Email = request.Email;
-        Provider.Direction = request.Direction;
+        provider.Name = request.Name;
+        provider.RUC = request.RUC;
+        provider.Number = request.Number;
+        provider.Email = request.Email;
+        provider.Direction = request.Direction;
 
     await _unitOfWork.CommitAsync();
 

@@ -11,7 +11,7 @@ namespace Shoping.Domain.Entities
         public int Code { get; set; }
         public string Name { get; set; } = string.Empty;
         public int Category_Id { get; set; }
-        public Category Category { get; set; } = new Category();
+        public Category Category { get; set; } // = new Category();
         public decimal Price { get; set; }
     }
 }
