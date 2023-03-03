@@ -42,7 +42,7 @@ namespace Shoping.Application.Features.Inventory.Commands
             {
                 throw new NotFoundException();
             }
-            Inventory.IsDeteleted = true;
+            Inventory.IsDeleted = true;
             await this._unitOfWork.CommitAsync();
 
             return Unit.Value;

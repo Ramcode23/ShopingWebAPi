@@ -41,8 +41,7 @@ namespace Shoping.WebApi.Controllers
             return Ok();
         }
 
-        [HttpGet("DeliveryId")]
-
+        [HttpGet("{Id}")]
         public Task<GetDeliveryQueryResponse> GetDeliveryById([FromRoute] GetDeliveryQuery query) =>
             _mediator.Send(query);
 

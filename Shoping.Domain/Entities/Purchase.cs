@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shoping.Domain.Entities
 {
-    public class Purchase : CancelBaseEntity
+    public class Purchase : BaseEntity
     {
         public string Number { get; set; } = string.Empty;
         public DateTime Date { get; set; }

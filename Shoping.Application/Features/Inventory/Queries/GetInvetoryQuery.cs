@@ -30,7 +30,7 @@ public class GetInventoryQueryHandler : IRequestHandler<GetInventoryQuery, GetIn
     public async Task<GetInventoryQueryResponse> Handle(GetInventoryQuery request, CancellationToken cancellationToken)
     {
 
-        var Inventary = _unitOfWork.Inventary.GetAsync(I => I.Id == request.Id.FromHashId() && I.IsDeteleted == false);
+        var Inventary = _unitOfWork.Inventary.GetAsync(I => I.Id == request.Id.FromHashId() && I.IsDeleted == false);
 
         if (Inventary is null)
         {

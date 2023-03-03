@@ -4,6 +4,7 @@ using MediatR;
 using Shoping.Application.Common.Exceptions;
 using Shoping.Application.Common.Helpers;
 using Shoping.Application.Common.Interfaces;
+using Shoping.Domain;
 using Shoping.Domain.Entities;
 using System;
 using System.Collections.Generic;

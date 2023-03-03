@@ -5,6 +5,7 @@ using Shoping.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Shoping.Application.Common.Interfaces.Repositories;
 
 namespace Shoping.Persistence;
 public class AppDbContext : IdentityDbContext<User>
@@ -17,8 +18,6 @@ public class AppDbContext : IdentityDbContext<User>
     {
         _user = currentUserService.User;
     }
-
- 
     
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<Product> Products => Set<Product>();
@@ -28,6 +27,10 @@ public class AppDbContext : IdentityDbContext<User>
     public DbSet<PurchaseDetail> PurchasesDetail => Set<PurchaseDetail>();
     public DbSet<Provider> Providers => Set<Provider>();
     public DbSet<Category> Categories => Set<Category>();
+    public DbSet<Inventary> Inventaries => Set<Inventary>();
+    public DbSet<Client> Clients => Set<Client>();
+    public DbSet<DeliveryDetail> DeliverysDetail => Set<DeliveryDetail>();
+    public DbSet<Delivery> Deliveries => Set<Delivery>();
 
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -44,13 +47,25 @@ public class AppDbContext : IdentityDbContext<User>
                 case EntityState.Modified:
                     entry.Entity.LastModifiedBy = _user.Id;
                     entry.Entity.LastModifiedByAt = DateTime.UtcNow;
+
+                    if (entry.Entity.IsDeleted == true )
+                    {
+                        entry.Entity.DeletedBy = _user.Id;
+                        entry.Entity.DeletedAt = DateTime.UtcNow;
+                    }
+
+                    if (entry.Entity.IsCanceled == true)
+                    {
+                        entry.Entity.CanceledBy = _user.Id;
+                        entry.Entity.CanceledAt = DateTime.UtcNow;
+                    }
+
                     break;
             }
         }
 
         return await base.SaveChangesAsync(cancellationToken);
     }
-
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

@@ -43,7 +43,7 @@ namespace Shoping.WebApi.Controllers
 
             return Ok();
         }
-        [HttpGet("{ClientyId}")]
+        [HttpGet("{Id}")]
         public Task<GetClientyQueryResponse> GetClientyById([FromRoute] GetClientyQuery query) =>
             _mediator.Send(query);
 

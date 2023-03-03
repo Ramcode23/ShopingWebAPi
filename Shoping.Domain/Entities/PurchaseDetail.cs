@@ -6,10 +6,10 @@ using Shoping.Domain.Entities.Comon;
 
 namespace Shoping.Domain.Entities
 {
-    public class PurchaseDetail : DetailBaseEntity
+    public class PurchaseDetail : BaseEntity
     {
 
         public int Purchase_Id { get; set; }
-        public Purchase Purchase { get; set; } // = new Purchase();
+        public Purchase Purchase { get; set; }
     }
 }

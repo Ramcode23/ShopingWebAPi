@@ -5,6 +5,9 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Shoping.Application.Common.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Threading;
+using Shoping.Domain;
 
 namespace Shoping.Persistence.Repositories
 {
@@ -56,10 +59,14 @@ namespace Shoping.Persistence.Repositories
         public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default) 
             => await _entitiySet.Where(expression).ToListAsync(cancellationToken);
 
+        public async Task<IEnumerable<T>> GetAllIncludingAsync(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _entitiySet;
+            return await includes.Aggregate(query, (current, include) => current.Include(include)).ToListAsync();
+        }
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default) 
-            => await _entitiySet.FirstOrDefaultAsync(expression, cancellationToken);
-
+        public async Task<T> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+        => await _entitiySet.FirstOrDefaultAsync(expression, cancellationToken);
 
         public void Remove(T entity) 
             => _dbContext.Remove(entity);

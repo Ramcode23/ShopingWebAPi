@@ -35,8 +35,6 @@ namespace Shoping.Application.Features.Sales.Commands
 
             sale.IsCanceled = true;
 
-            // sale.IsDeleted = true;
-
             await _unitOfWork.CommitAsync();
 
             return Unit.Value;

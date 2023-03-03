@@ -39,7 +39,7 @@ namespace Shoping.Application.Features.Deliveries.Commands
             {
                 throw new NotFoundException();
             }
-            Delivery.IsDeteleted = true;
+            Delivery.IsDeleted = true;
 
             await this._unitOfWork.CommitAsync();
             return Unit.Value;
