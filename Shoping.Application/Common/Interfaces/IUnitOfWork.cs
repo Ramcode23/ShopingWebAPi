@@ -10,18 +10,17 @@ namespace Shoping.Application.Common.Interfaces
 {
     public interface IUnitOfWork
     {
-       
-       IGenericRepository<Category> Category { get; }
-       IGenericRepository<Product> Product { get; }
-       IGenericRepository<Sale> Sale { get; }
-       IGenericRepository<Purchase> Purchase { get; }
-       IGenericRepository<Provider> Provider { get; }
-       IGenericRepository<PurchaseDetail> PurchaseDetail { get; }
-       IGenericRepository<SaleDetail> SaleDetail { get; }
+
         IGenericRepository<Category> Category { get; }
+        IGenericRepository<Product> Product { get; }
+        IGenericRepository<Sale> Sale { get; }
+        IGenericRepository<Purchase> Purchase { get; }
+        IGenericRepository<Provider> Provider { get; }
+        IGenericRepository<PurchaseDetail> PurchaseDetail { get; }
+        IGenericRepository<SaleDetail> SaleDetail { get; }
         IGenericRepository<Inventary> Inventary { get; }
         IGenericRepository<Client> Client { get; }
-        IGenericRepository<DeliveryDetail> DeliveryDetail { get; }  
+        IGenericRepository<DeliveryDetail> DeliveryDetail { get; }
         IGenericRepository<Delivery> Delivery { get; }
         void Commit();
         void Rollback();

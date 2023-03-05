@@ -11,6 +11,7 @@ using Shoping.Application.Common.Interfaces;
 using Shoping.Domain;
 using Microsoft.AspNetCore.Identity;
 using Shoping.Persistence.Repositories;
+using Shoping.Application.Common.Interfaces.Repositories;
 
 namespace Shoping.Persistence
 {
@@ -51,6 +52,7 @@ namespace Shoping.Persistence
 
 
                 services.AddScoped<IUnitOfWork, UnitOfWork>();
+                // services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 
             return services;
         }

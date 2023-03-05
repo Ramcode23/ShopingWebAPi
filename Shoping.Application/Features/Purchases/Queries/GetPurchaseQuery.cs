@@ -25,8 +25,8 @@ public class GetPurchaseQueryHandler : IRequestHandler<GetPurchaseQuery, GetPurc
     }
     public async Task<GetPurchaseQueryResponse> Handle(GetPurchaseQuery request, CancellationToken cancellationToken)
     {
-        var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id==request.Id.FromHashId());
-        // var purchase = await _unitOfWork.Purchase.GetAsync(p => p.Id == request.Id.FromHashId() && p.IsCanceled == false);
+        var purchases = await _unitOfWork.Purchase.GetAllIncludingAsync(p => p.Provider);
+        var purchase = purchases.FirstOrDefault(p => p.Id == request.Id.FromHashId());
 
         if (purchase is null)
         {
@@ -42,7 +42,7 @@ public class GetPurchaseQueryResponse
     public string Id { get; set; } = default!;
     public string Number { get; set; } = default!;
     public DateTime Date { get; set; }
-    public int Provider_Id { get; set; }
+    public string ProviderName { get; set; } = default!;
 }
 
 public class GetPurchaseQueryProfile : Profile

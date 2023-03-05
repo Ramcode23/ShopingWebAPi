@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Shoping.Domain.Entities
 {
-    public class Sale : CancelBaseEntity
+    public class Sale : BaseEntity
     {
         public string Number { get; set; } = string.Empty;
         public DateTime Date { get; set; }
         public int Client_Id { get; set; }
-        // public Client Client { get; set; } // = new Client();
-        public ICollection<SaleDetail> SaleDetails { get; set; } // = new List<SaleDetail>();
+        public Client Client { get; set; }
+        public ICollection<SaleDetail> SaleDetails { get; set; }
     }
 }

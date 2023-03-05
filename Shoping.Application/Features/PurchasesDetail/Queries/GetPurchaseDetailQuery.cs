@@ -25,7 +25,8 @@ public class GetPurchaseDetailQueryHandler : IRequestHandler<GetPurchaseDetailQu
     }
     public async Task<GetPurchaseDetailQueryResponse> Handle(GetPurchaseDetailQuery request, CancellationToken cancellationToken)
     {
-        var purchaseDetail = await _unitOfWork.PurchaseDetail.GetAsync(p => p.Id==request.Id.FromHashId());
+        var purchasesDetail = await _unitOfWork.PurchaseDetail.GetAllIncludingAsync(pd => pd.Purchase);
+        var purchaseDetail = purchasesDetail.FirstOrDefault(pd => pd.Id==request.Id.FromHashId());
 
         if (purchaseDetail is null)
         {
@@ -39,7 +40,7 @@ public class GetPurchaseDetailQueryHandler : IRequestHandler<GetPurchaseDetailQu
 public class GetPurchaseDetailQueryResponse
 {
     public string Id { get; set; } = default!;
-    public int Purchase_Id { get; set; }
+    public string PurchaseNumber { get; set; } = default!;
 }
 
 public class GetPurchaseDetailQueryProfile : Profile

@@ -42,7 +42,6 @@ namespace Shoping.WebApi.Controllers
         public Task<GetPurchaseQueryResponse> GetPurchaseById([FromRoute] GetPurchaseQuery query) =>
             _mediator.Send(query);
 
-        // [HttpDelete]
         [HttpPost("CancelPurchase/{Id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CancelPurchase(string Id)

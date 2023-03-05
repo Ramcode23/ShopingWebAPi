@@ -65,7 +65,7 @@ namespace Shoping.WebApi.Controllers
         //     /// <param name="query"></param>
 
         //     /// <returns></returns>
-        [HttpGet("{InventaryId}")]
+        [HttpGet("{Id}")]
         public Task<GetInventoryQueryResponse> GetInventaryById([FromRoute] GetInventoryQuery query) =>
            _mediator.Send(query);
 

@@ -35,8 +35,6 @@ namespace Shoping.Application.Features.PurchasesDetail.Commands
             }
 
             purchase.IsCanceled = true;
-            
-            // purchase.IsDeleted = true;
 
             await _unitOfWork.CommitAsync();
 

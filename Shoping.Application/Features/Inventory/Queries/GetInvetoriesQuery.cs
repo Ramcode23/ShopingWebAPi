@@ -35,7 +35,7 @@ public class GetInventoriesQueryHandler : IRequestHandler<GetInventoriesQuery, L
     public async Task<List<GetInventoriesQueryResponse>> Handle(GetInventoriesQuery request, CancellationToken cancellationToken)
     {
 
-        var Inventories = await _unitOfWork.Inventary.GetAllAsync(I => I.IsDeteleted == false);
+        var Inventories = await _unitOfWork.Inventary.GetAllAsync(I => I.IsDeleted == false);
         return _mapper.Map<List<GetInventoriesQueryResponse>>(Inventories);
 
     }

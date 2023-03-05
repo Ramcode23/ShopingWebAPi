@@ -17,11 +17,13 @@ namespace Shoping.Application.Features.Purchases.Commands
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly CurrentUser _user;
 
-        public CancelPurchaseCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
+        public CancelPurchaseCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, ICurrentUserService currentUserService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _user = currentUserService.User;
         }
 
         public async Task<Unit> Handle(CancelPurchaseCommand request, CancellationToken cancellationToken)
@@ -35,8 +37,6 @@ namespace Shoping.Application.Features.Purchases.Commands
             }
 
             purchase.IsCanceled = true;
-            
-            // purchase.IsDeleted = true;
 
             await _unitOfWork.CommitAsync();
 

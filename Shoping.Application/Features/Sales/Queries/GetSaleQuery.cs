@@ -25,8 +25,8 @@ public class GetSaleQueryHandler : IRequestHandler<GetSaleQuery, GetSaleQueryRes
     }
     public async Task<GetSaleQueryResponse> Handle(GetSaleQuery request, CancellationToken cancellationToken)
     {
-        var sale = await _unitOfWork.Sale.GetAsync(s => s.Id==request.Id.FromHashId());
-        // var sale = await _unitOfWork.Sale.GetAsync(s => s.Id == request.Id.FromHashId() && s.IsCanceled == false);
+        var sales = await _unitOfWork.Sale.GetAllIncludingAsync(s => s.Client);
+        var sale = sales.FirstOrDefault(s => s.Id==request.Id.FromHashId());
 
         if (sale is null)
         {
@@ -42,7 +42,7 @@ public class GetSaleQueryResponse
     public string Id { get; set; } = default!;
     public string Number { get; set; } = default!;
     public DateTime Date { get; set; }
-    public int Client_Id { get; set; }
+    public string ClientName { get; set; } = default!;
 }
 
 public class GetSaleQueryProfile : Profile

@@ -24,7 +24,8 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
     }
     public async Task<GetProductQueryResponse> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-        var product = await _unitOfWork.Product.GetAsync(p => p.Id==request.Id.FromHashId() && p.IsDeleted==false);
+        var products = await _unitOfWork.Product.GetAllIncludingAsync(p => p.Category);
+        var product = products.FirstOrDefault(p => p.Id==request.Id.FromHashId() && p.IsDeleted==false);
 
         if (product is null)
         {
@@ -40,7 +41,7 @@ public class GetProductQueryResponse
     public string Id { get; set; } = default!;
     public int Code { get; set; }
     public string Name { get; set; } = string.Empty;
-    public int Category_Id { get; set; }
+    public string CategoryName { get; set; } = default!;
     public decimal Price { get; set; }
 }
 

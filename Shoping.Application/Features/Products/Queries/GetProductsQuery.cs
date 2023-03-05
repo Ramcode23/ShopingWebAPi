@@ -25,7 +25,10 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, List<Ge
 
     public async Task<List<GetProductsQueryResponse>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        var products = await _unitOfWork.Product.GetAllAsync(p=>p.IsDeleted==false);
+        var query = await _unitOfWork.Product.GetAllIncludingAsync(p => p.Category);
+        var products = query.Where(p => p.IsDeleted == false);
+
+
         return _mapper.Map<List<GetProductsQueryResponse>>(products);
     }
     

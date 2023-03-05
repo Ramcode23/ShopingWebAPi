@@ -30,7 +30,7 @@ public class GetDeliveriesQueryHandler : IRequestHandler<GetDeliveriesQuery, Lis
 
     public async Task<List<GetDeliveriesQueryResponse>> Handle(GetDeliveriesQuery request , CancellationToken cancellationToken)
     {
-        var Deliveries = await _uniOfWork.Delivery.GetAllAsync(D =>D.IsDeteleted==false);
+        var Deliveries = await _uniOfWork.Delivery.GetAllAsync(D =>D.IsDeleted ==false);
         return _mapper.Map<List<GetDeliveriesQueryResponse>>(Deliveries);
     }
     public class GetDeliveriesQueryResponse

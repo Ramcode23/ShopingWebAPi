@@ -12,4 +12,7 @@ public class BaseEntity
     public DateTime? DeletedAt { get; set; }
     public string? DeletedBy { get; set; }
     public bool IsDeleted { get; set; }
+    public DateTime? CanceledAt { get; set; }
+    public string? CanceledBy { get; set; }
+    public bool IsCanceled { get; set; }
 }

@@ -25,7 +25,7 @@ public class GetPurchasesDetailQueryHandler : IRequestHandler<GetPurchasesDetail
 
     public async Task<List<GetPurchasesDetailQueryResponse>> Handle(GetPurchasesDetailQuery request, CancellationToken cancellationToken)
     {
-        var purchasesDetail = await _unitOfWork.PurchaseDetail.GetAllAsync();
+        var purchasesDetail = await _unitOfWork.PurchaseDetail.GetAllIncludingAsync(pd => pd.Purchase);
 
         return _mapper.Map<List<GetPurchasesDetailQueryResponse>>(purchasesDetail);
     }

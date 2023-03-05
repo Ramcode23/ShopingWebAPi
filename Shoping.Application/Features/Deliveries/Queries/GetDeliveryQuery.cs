@@ -30,7 +30,7 @@ public class GetDeliveryQueryHandler : IRequestHandler<GetDeliveryQuery, GetDeli
     public async Task<GetDeliveryQueryResponse> Handle(GetDeliveryQuery request , CancellationToken cancellationToken)
 
     {
-        var Delivery = _unitOfWork.Delivery.GetAsync(D => D.Id == request.Id.FromHashId() && D.IsDeteleted==false);
+        var Delivery = _unitOfWork.Delivery.GetAsync(D => D.Id == request.Id.FromHashId() && D.IsDeleted==false);
 
         if (Delivery is null)
         {
